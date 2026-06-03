@@ -47,16 +47,16 @@ xmake
 ## 使用方法
 
 ```bash
-# 1. 启动测试程序
-xmake run test_memleak &
+# 一键启动：脚本自动计算 PID，先启动 memleak 再启动目标程序
+./start_memleak.sh ./build/linux/x86_64/release/test_memleak
 
-# 2. 启动监控（需要 root 权限加载 BPF）
-sudo ./build/linux/x86_64/release/memleak $(pidof test_memleak)
+# 也可以监控你自己的程序
+./start_memleak.sh /usr/bin/my_program arg1 arg2
 
-# 3. 触发打印泄漏报告
+# 触发打印泄漏报告
 touch /tmp/memleak_print
 
-# 4. 退出监控
+# 退出监控
 touch /tmp/memleak_quit
 ```
 
