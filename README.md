@@ -31,19 +31,16 @@ https://space.bilibili.com/384754914
 - `bpftool`
 - `libbpf-dev`
 - `xmake`
-- `blazesym` (从 [libbpf/blazesym](https://github.com/libbpf/blazesym) 编译)
+- `cargo` (Rust 工具链，用于编译 blazesym)
 
 ### 编译
 
 ```bash
-# 编译 blazesym 并安装到系统路径（首次）
-cd /tmp && git clone --depth 1 https://github.com/libbpf/blazesym.git
-cd blazesym && cargo build --release -p blazesym-c
-sudo cp target/release/libblazesym_c.so /usr/local/lib/
-sudo cp capi/include/blazesym.h /usr/local/include/
-sudo ldconfig
+# 克隆（含 blazesym 子模块）
+git clone --recursive <repo-url>
+cd memleak
 
-# 编译 memleak
+# 一键编译（首次会自动构建 blazesym + 生成 vmlinux.h + 编译 BPF）
 xmake
 ```
 

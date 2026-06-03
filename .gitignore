@@ -10,9 +10,6 @@ memleak.skel.h
 # vmlinux.h (generated from kernel BTF)
 vmlinux.h
 
-# blazesym (installed to /usr/local, symlink remnant)
-blazesym.h
-
 # editor / IDE
 .vscode/
 .idea/
