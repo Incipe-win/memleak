@@ -12,11 +12,10 @@ target("memleak")
     -- libbpf
     add_links("bpf", "elf", "z")
 
-    -- blazesym (Rust static lib — force static linking to avoid .so dependency)
-    add_includedirs("/tmp/blazesym/capi/include")
-    add_linkdirs("/tmp/blazesym/target/release")
-    -- -Bstatic tells linker to use .a; -Bdynamic resumes normal dynamic linking after
-    add_ldflags("-Wl,-Bstatic", "-lblazesym_c", "-Wl,-Bdynamic")
+    -- blazesym (installed to /usr/local)
+    add_includedirs("/usr/local/include")
+    add_linkdirs("/usr/local/lib")
+    add_links("blazesym_c", "pthread", "dl", "m")
     add_links("pthread", "dl", "m")
 
     before_build(function (target)

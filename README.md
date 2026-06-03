@@ -36,11 +36,14 @@ https://space.bilibili.com/384754914
 ### 编译
 
 ```bash
-# 安装 blazesym.so 到系统路径（首次）
-sudo cp /tmp/blazesym/target/release/libblazesym_c.so /usr/local/lib/
+# 编译 blazesym 并安装到系统路径（首次）
+cd /tmp && git clone --depth 1 https://github.com/libbpf/blazesym.git
+cd blazesym && cargo build --release -p blazesym-c
+sudo cp target/release/libblazesym_c.so /usr/local/lib/
+sudo cp capi/include/blazesym.h /usr/local/include/
 sudo ldconfig
 
-# 编译所有 target
+# 编译 memleak
 xmake
 ```
 
@@ -48,11 +51,10 @@ xmake
 
 ```bash
 # 1. 启动测试程序
-./build/linux/x86_64/release/test_memleak &
+xmake run test_memleak &
 
 # 2. 启动监控（需要 root 权限加载 BPF）
-sudo LD_LIBRARY_PATH=/tmp/blazesym/target/release \
-  ./build/linux/x86_64/release/memleak $(pidof test_memleak)
+sudo ./build/linux/x86_64/release/memleak $(pidof test_memleak)
 
 # 3. 触发打印泄漏报告
 touch /tmp/memleak_print
