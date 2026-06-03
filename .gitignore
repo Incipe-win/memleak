@@ -1,0 +1,21 @@
+# xmake build artifacts
+build/
+.cache/
+*.pdb
+
+# BPF build artifacts
+*.bpf.o
+memleak.skel.h
+
+# vmlinux.h (generated from kernel BTF)
+vmlinux.h
+
+# editor / IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# macOS
+.DS_Store
